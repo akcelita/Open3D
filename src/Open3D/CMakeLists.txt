@@ -13,7 +13,7 @@ add_subdirectory(Odometry)
 add_subdirectory(Registration)
 add_subdirectory(Utility)
 add_subdirectory(IO)
-add_subdirectory(Visualization)
+# add_subdirectory(Visualization)
 
 # Source group for Visual Studio
 ADD_SOURCE_GROUP(Camera)
@@ -24,12 +24,12 @@ ADD_SOURCE_GROUP(Odometry)
 ADD_SOURCE_GROUP(Registration)
 ADD_SOURCE_GROUP(Utility)
 ADD_SOURCE_GROUP(IO)
-ADD_SOURCE_GROUP(Visualization)
+# ADD_SOURCE_GROUP(Visualization)
 
 # Install headers
 install(DIRECTORY   "${CMAKE_CURRENT_SOURCE_DIR}"
         DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-        PATTERN     "Visualization/Shader/GLSL" EXCLUDE
+	# PATTERN     "Visualization/Shader/GLSL" EXCLUDE
         PATTERN     "*.cpp" EXCLUDE
         PATTERN     "*.in" EXCLUDE
         PATTERN     "*.txt" EXCLUDE)
@@ -47,7 +47,7 @@ add_library(${CMAKE_PROJECT_NAME}
     $<TARGET_OBJECTS:Registration>
     $<TARGET_OBJECTS:Utility>
     $<TARGET_OBJECTS:IO>
-    $<TARGET_OBJECTS:Visualization>
+    # $<TARGET_OBJECTS:Visualization>
 )
 ShowAndAbortOnWarning(${CMAKE_PROJECT_NAME})
 

@@ -33,7 +33,7 @@
 #include "open3d_pybind/odometry/odometry.h"
 #include "open3d_pybind/registration/registration.h"
 #include "open3d_pybind/utility/utility.h"
-#include "open3d_pybind/visualization/visualization.h"
+// #include "open3d_pybind/visualization/visualization.h"
 
 #include "Open3D/Utility/Console.h"
 
@@ -59,5 +59,5 @@ PYBIND11_MODULE(open3d, m) {
     pybind_io(m);
     pybind_registration(m);
     pybind_odometry(m);
-    pybind_visualization(m);
+    // pybind_visualization(m);
 }

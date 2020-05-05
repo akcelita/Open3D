@@ -6,8 +6,8 @@ find_package(pybind11  QUIET)
 if (PKGCONFIG_FOUND)
     pkg_search_module(FLANN           flann           QUIET)
     pkg_search_module(EIGEN3          eigen3>=3.2.7   QUIET)
-    pkg_search_module(GLFW            glfw3           QUIET)
-    pkg_search_module(GLEW            glew            QUIET)
+    #pkg_search_module(GLFW            glfw3           QUIET)
+    #pkg_search_module(GLEW            glew            QUIET)
     pkg_search_module(JSONCPP         jsoncpp>=1.7.0  QUIET)
     pkg_search_module(PNG             libpng>=1.6.0   QUIET)
     pkg_search_module(JPEG_TURBO      libturbojpeg    QUIET)
@@ -59,58 +59,58 @@ endif ()
 message(STATUS "Flann includes ${FLANN_INCLUDE_DIRS}")
 
 # GLEW
-if (BUILD_GLEW)
-    message(STATUS "Building GLEW from source (BUILD_GLEW=ON)")
-elseif (GLEW_FOUND)
-    message(STATUS "Using installed GLEW ${GLEW_VERSION}")
-else ()
-    message(STATUS "Unable to find GLEW installed in the system")
-    message(STATUS "Building GLEW from source")
-    set(BUILD_GLEW ON)
-endif ()
+#if (BUILD_GLEW)
+#    message(STATUS "Building GLEW from source (BUILD_GLEW=ON)")
+#elseif (GLEW_FOUND)
+#    message(STATUS "Using installed GLEW ${GLEW_VERSION}")
+#else ()
+#    message(STATUS "Unable to find GLEW installed in the system")
+#    message(STATUS "Building GLEW from source")
+#    set(BUILD_GLEW ON)
+#endif ()
 
-if (BUILD_GLEW)
-    add_subdirectory(glew)
-    INSTALL_HEADERS(glew)
-endif ()
+#if (BUILD_GLEW)
+#    add_subdirectory(glew)
+#    INSTALL_HEADERS(glew)
+#endif ()
 
 # GLFW
-if (BUILD_GLFW)
-    message(STATUS "Building GLFW from source (BUILD_GLFW=ON)")
-elseif (GLFW_FOUND AND OPENGL_FOUND)
-    message(STATUS "Using installed GLFW ${GLFW_VERSION}")
-    if (APPLE)
-        find_library(COCOA_FRAMEWORK Cocoa)
-        find_library(IOKIT_FRAMEWORK IOKit)
-        find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
-        find_library(CORE_VIDEO_FRAMEWORK CoreVideo)
-        mark_as_advanced(COCOA_FRAMEWORK
-                         IOKIT_FRAMEWORK
-                         CORE_FOUNDATION_FRAMEWORK
-                         CORE_VIDEO_FRAMEWORK)
-        list(APPEND GLFW_LIBRARIES "${COCOA_FRAMEWORK}"
-                                    "${OPENGL_gl_LIBRARY}"
-                                    "${IOKIT_FRAMEWORK}"
-                                    "${CORE_FOUNDATION_FRAMEWORK}"
-                                    "${CORE_VIDEO_FRAMEWORK}")
-    else ()
-        list(APPEND GLFW_INCLUDE_DIRS ${OPENGL_INCLUDE_DIR})
-        list(APPEND GLFW_LIBRARIES    ${OPENGL_gl_LIBRARY})
-    endif ()
-else ()
-    message(STATUS "Unable to find GLFW installed in the system")
-    message(STATUS "Building GLFW from source")
-    set(BUILD_GLFW ON)
-    # Notify PARENT_SCOPE that GLFW was built, to deal with glfw(3) naming issue
-    set(BUILD_GLFW ON PARENT_SCOPE)
-endif ()
+#if (BUILD_GLFW)
+#    message(STATUS "Building GLFW from source (BUILD_GLFW=ON)")
+#elseif (GLFW_FOUND AND OPENGL_FOUND)
+#    message(STATUS "Using installed GLFW ${GLFW_VERSION}")
+#    if (APPLE)
+#        find_library(COCOA_FRAMEWORK Cocoa)
+#        find_library(IOKIT_FRAMEWORK IOKit)
+#        find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
+#        find_library(CORE_VIDEO_FRAMEWORK CoreVideo)
+#        mark_as_advanced(COCOA_FRAMEWORK
+#                         IOKIT_FRAMEWORK
+#                         CORE_FOUNDATION_FRAMEWORK
+#                         CORE_VIDEO_FRAMEWORK)
+#        list(APPEND GLFW_LIBRARIES "${COCOA_FRAMEWORK}"
+#                                    "${OPENGL_gl_LIBRARY}"
+#                                    "${IOKIT_FRAMEWORK}"
+#                                    "${CORE_FOUNDATION_FRAMEWORK}"
+#                                    "${CORE_VIDEO_FRAMEWORK}")
+#    else ()
+#        list(APPEND GLFW_INCLUDE_DIRS ${OPENGL_INCLUDE_DIR})
+#        list(APPEND GLFW_LIBRARIES    ${OPENGL_gl_LIBRARY})
+#    endif ()
+#else ()
+#    message(STATUS "Unable to find GLFW installed in the system")
+#    message(STATUS "Building GLFW from source")
+#    set(BUILD_GLFW ON)
+#    # Notify PARENT_SCOPE that GLFW was built, to deal with glfw(3) naming issue
+#    set(BUILD_GLFW ON PARENT_SCOPE)
+#endif ()
 
-if (BUILD_GLFW)
-    add_subdirectory(GLFW)
-    INSTALL_HEADERS(GLFW)
-    list(APPEND GLFW_INCLUDE_DIRS ${OPENGL_INCLUDE_DIR})
-    list(APPEND GLFW_LIBRARIES    ${OPENGL_gl_LIBRARY})
-endif ()
+#if (BUILD_GLFW)
+#    add_subdirectory(GLFW)
+#    INSTALL_HEADERS(GLFW)
+#    list(APPEND GLFW_INCLUDE_DIRS ${OPENGL_INCLUDE_DIR})
+#    list(APPEND GLFW_LIBRARIES    ${OPENGL_gl_LIBRARY})
+#endif ()
 
 # Azure Kinect
 include(azure_kinect/azure_kinect.cmake)
@@ -333,8 +333,8 @@ list(APPEND 3RDPARTY_INCLUDE_DIRS
      ${dirent_INCLUDE_DIRS}
      ${EIGEN3_INCLUDE_DIRS}
      ${FLANN_INCLUDE_DIRS}
-     ${GLEW_INCLUDE_DIRS}
-     ${GLFW_INCLUDE_DIRS}
+     #${GLEW_INCLUDE_DIRS}
+     #${GLFW_INCLUDE_DIRS}
      ${JPEG_TURBO_INCLUDE_DIRS}
      ${JSONCPP_INCLUDE_DIRS}
      ${liblzf_INCLUDE_DIRS}
@@ -357,15 +357,15 @@ list(APPEND 3RDPARTY_INCLUDE_DIRS
 # The future plan is to minimize such dependencies
 list(APPEND 3RDPARTY_INCLUDE_DIRS_AT_INSTALL
      ${EIGEN3_INCLUDE_DIRS}
-     ${GLEW_INCLUDE_DIRS}
-     ${GLFW_INCLUDE_DIRS}
+     #${GLEW_INCLUDE_DIRS}
+     #${GLFW_INCLUDE_DIRS}
      ${fmt_INCLUDE_DIRS}
 )
 
 # set 3RDPARTY_LIBRARY_DIRS
 list(APPEND 3RDPARTY_LIBRARY_DIRS
-    ${GLEW_LIBRARY_DIRS}
-    ${GLFW_LIBRARY_DIRS}
+    #${GLEW_LIBRARY_DIRS}
+    #${GLFW_LIBRARY_DIRS}
     ${JSONCPP_LIBRARY_DIRS}
     ${PNG_LIBRARY_DIRS}
     ${JPEG_TURBO_LIBRARY_DIRS}
@@ -374,8 +374,8 @@ list(APPEND 3RDPARTY_LIBRARY_DIRS
 # set 3RDPARTY_LIBRARIES
 list(APPEND 3RDPARTY_LIBRARIES
      ${FLANN_LIBRARIES}
-     ${GLEW_LIBRARIES}
-     ${GLFW_LIBRARIES}
+     #${GLEW_LIBRARIES}
+     #${GLFW_LIBRARIES}
      ${JPEG_TURBO_LIBRARIES}
      ${JSONCPP_LIBRARIES}
      ${PNG_LIBRARIES}
@@ -390,12 +390,12 @@ list(APPEND 3RDPARTY_LIBRARIES
 # the user app that links Open3D also need to link PRE_BUILT_3RDPARTY_LIBRARIES,
 # all other 3rd party libraries are embedded in the Open3D, so the user app
 # shall not link them
-if (NOT BUILD_GLEW)
-    list(APPEND PRE_BUILT_3RDPARTY_LIBRARIES ${GLEW_LIBRARIES})
-endif ()
-if (NOT BUILD_GLFW)
-    list(APPEND PRE_BUILT_3RDPARTY_LIBRARIES ${GLFW_LIBRARIES})
-endif ()
+#if (NOT BUILD_GLEW)
+#    list(APPEND PRE_BUILT_3RDPARTY_LIBRARIES ${GLEW_LIBRARIES})
+#endif ()
+#if (NOT BUILD_GLFW)
+#    list(APPEND PRE_BUILT_3RDPARTY_LIBRARIES ${GLFW_LIBRARIES})
+#endif ()
 if (NOT BUILD_PNG)
     list(APPEND PRE_BUILT_3RDPARTY_LIBRARIES ${PNG_LIBRARIES})
 endif ()

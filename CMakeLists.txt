@@ -74,8 +74,8 @@ option(BUILD_UNIT_TESTS          "Build the Open3D unit tests"              OFF)
 option(BUILD_BENCHMARKS          "Build the micro benchmarks"               OFF)
 option(BUILD_EIGEN3              "Use the Eigen3 that comes with Open3D"    ON)
 option(BUILD_FLANN               "Use the flann that comes with Open3D"     ON)
-option(BUILD_GLEW                "Build glew from source"                   OFF)
-option(BUILD_GLFW                "Build glfw from source"                   OFF)
+# option(BUILD_GLEW                "Build glew from source"                   OFF)
+# option(BUILD_GLFW                "Build glfw from source"                   OFF)
 option(BUILD_PNG                 "Build png from source"                    OFF)
 option(BUILD_JPEG                "Build jpeg-turbo from source"             ON)
 option(BUILD_PYBIND11            "Build pybind11 from source"               ON)
@@ -122,8 +122,8 @@ if (POLICY CMP0072)
     cmake_policy(SET CMP0072 NEW)
     if (BUILD_EIGEN3
         OR BUILD_FLANN
-        OR BUILD_GLEW
-        OR BUILD_GLFW
+	# OR BUILD_GLEW
+	# OR BUILD_GLFW
         OR BUILD_PNG)
         cmake_policy(SET CMP0072 OLD)
     endif()
@@ -300,7 +300,7 @@ include_directories(
 add_subdirectory(src)
 
 # Examples
-add_subdirectory(examples)
+# add_subdirectory(examples)
 
 # `make check-style` errors if styling is not compliant
 add_custom_target(check-style
